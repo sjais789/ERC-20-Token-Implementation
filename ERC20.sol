@@ -51,3 +51,39 @@ emit Approval(msg.sender,spender,tokens);
 return true;
 
 }
+function allowance(address tokenOwner , address spender) view public returns(uint)
+{
+   return allowed;
+}
+
+
+
+
+function transferForm(address from,address to, uint tokens ) returns(bool){
+
+require(allowed[from][to] >= tokens);
+require(amount[from]>= tokens);
+amount[from] -= tokens;
+amount[to] += tokens;
+
+allowed[from][to] -= tokens;
+
+return true;
+}
+
+
+function transfer(address to, uint tokens) public returns (bool success)
+{
+   require(amount[msg.sender]> =tokens && tokens>0);
+     
+   amount[to] += tokens;
+   amount[msg.sender] -= tokens;
+   Transfer(msg.sender,to,tokens);
+   return true;
+
+}
+
+ 
+
+
+}
